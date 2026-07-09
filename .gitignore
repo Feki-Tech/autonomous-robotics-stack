@@ -1,0 +1,6 @@
+build/
+install/
+log/
+.mentor/
+.cache/
+compile_commands.json
