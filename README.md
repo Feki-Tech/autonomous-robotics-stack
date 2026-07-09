@@ -35,8 +35,8 @@ adapter boundary; core libraries never include ROS headers.
 | Package          | Description                                            | Status |
 | ---------------- | ------------------------------------------------------ | :----: |
 | `ars_core`       | Geometry, estimation, planning, control (pure C++20)   |   🟢   |
-| `ars_ros2`       | Lifecycle nodes, executors, message adapters           |   ⚪   |
-| `ars_simulation` | Gazebo worlds, diff-drive AMR model, sensor bridges    |   ⚪   |
+| `ars_ros2`       | Lifecycle nodes, executors, message adapters           |   🟢   |
+| `ars_sim`        | Gazebo worlds, diff-drive AMR model, sensor bridges    |   🟢   |
 | `ars_missions`   | Behavior-tree mission execution                        |   ⚪   |
 | `ars_bringup`    | Launch files, parameters, system composition           |   ⚪   |
 
@@ -50,6 +50,19 @@ cmake --preset dev          # Debug + ASan/UBSan + warnings-as-errors
 cmake --build --preset dev
 ctest --preset dev
 ```
+
+## Simulation (ROS 2 Jazzy + Gazebo Harmonic)
+
+```bash
+colcon build --packages-select ars_ros2 ars_sim
+source install/setup.bash
+ros2 launch ars_sim sil.launch.py        # headless; add headless:=false for the GUI
+ros2 topic pub --once /goal_pose geometry_msgs/msg/PoseStamped \
+    '{pose: {position: {x: 2.0, y: -1.0}}}'
+```
+
+The robot plans a path with A*, tracks it with pure pursuit, and localizes with
+its own wheel odometry — Gazebo's ground truth is never consumed.
 
 ## License
 

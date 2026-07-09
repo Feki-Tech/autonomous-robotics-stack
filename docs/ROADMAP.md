@@ -36,10 +36,10 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `ars_ros2` adapter layer: lifecycle nodes, message conversions
 - [x] colcon build alongside standalone CMake
 
-## M6 — Simulation
+## M6 — Simulation (complete — v0.6.0)
 
-- [ ] Gazebo Harmonic diff-drive AMR model
-- [ ] Full SIL pipeline: sensors → estimation → planning → control
+- [x] Gazebo Harmonic diff-drive AMR model
+- [x] Full SIL pipeline: sensors → estimation → planning → control
 
 ## M7 — Mission Execution
 
