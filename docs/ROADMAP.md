@@ -26,10 +26,10 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `planning::AStar` — grid A* with pluggable heuristics
 - [x] `planning::PathSmoother` — gradient-based smoothing
 
-## M4 — Trajectory Control
+## M4 — Trajectory Control (complete — v0.4.0)
 
-- [ ] `control::PidController` — anti-windup, derivative filtering
-- [ ] `control::PurePursuit` — path tracking with adaptive lookahead
+- [x] `control::PidController` — anti-windup, derivative filtering
+- [x] `control::PurePursuit` — path tracking with adaptive lookahead
 
 ## M5 — ROS 2 Integration
 
