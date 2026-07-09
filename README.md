@@ -17,7 +17,7 @@ and architecture decision records.
 
 1. **ROS-agnostic core.** All domain logic (geometry, estimation, planning, control)
    lives in pure C++20 libraries with zero ROS dependencies. ROS 2 is an integration
-   detail confined to a thin adapter layer.
+   detail confined to a thin adapter layer ([ADR-0002](docs/adr/0002-ros-agnostic-core.md)).
 2. **Compile-time correctness first.** `constexpr` where possible, concept-constrained
    templates, RAII everywhere, no owning raw pointers.
 3. **Tests are the specification.** Core components ship with exhaustive unit tests,
@@ -39,6 +39,8 @@ adapter boundary; core libraries never include ROS headers.
 | `ars_simulation` | Gazebo worlds, diff-drive AMR model, sensor bridges    |   ⚪   |
 | `ars_missions`   | Behavior-tree mission execution                        |   ⚪   |
 | `ars_bringup`    | Launch files, parameters, system composition           |   ⚪   |
+
+See the [Roadmap](docs/ROADMAP.md).
 
 ## Build & Test (core, no ROS required)
 
