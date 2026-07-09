@@ -64,6 +64,24 @@ ros2 topic pub --once /goal_pose geometry_msgs/msg/PoseStamped \
 The robot plans a path with A*, tracks it with pure pursuit, and localizes with
 its own wheel odometry — Gazebo's ground truth is never consumed.
 
+## Run everything in Docker
+
+No local ROS or Gazebo installation required — only Docker.
+
+```bash
+# Interactive dev shell (repository mounted at /ws): build, test, colcon — all inside.
+docker compose run --rm dev
+
+# Headless SIL simulation, fully self-contained image:
+docker compose up sil
+docker compose exec sil ros2 topic pub --once /goal_pose \
+    geometry_msgs/msg/PoseStamped '{pose: {position: {x: 2.0, y: -1.0}}}'
+```
+
+The `dev` image carries the full toolchain (ROS 2 Jazzy, Gazebo Harmonic,
+clang-format/-tidy, gdb); the `sil` image bakes a release build of the stack
+and launches the simulation pipeline by default.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
