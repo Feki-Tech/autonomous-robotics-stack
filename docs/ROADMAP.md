@@ -3,7 +3,7 @@
 Milestone-driven development. Each milestone ends with a tagged release,
 green CI, and updated documentation.
 
-## M1 — Core Foundations (in progress)
+## M1 — Core Foundations (complete — v0.1.0)
 
 Pure C++20, no ROS. The mathematical backbone of the stack.
 
@@ -13,10 +13,11 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `geometry::Pose2` — SE(2) rigid transform, compose/inverse/relative-to
 - [x] `geometry::Twist2` — planar velocity, body/world frame conversions
 
-## M2 — State Estimation
+## M2 — State Estimation (in progress)
 
+- [ ] `math::Matrix` — fixed-size constexpr matrix algebra (no external deps)
+- [ ] `estimation::DiffDriveOdometry` — wheel-speed dead reckoning
 - [ ] `estimation::Ekf` — generic EKF over concept-constrained models
-- [ ] Differential-drive odometry motion model
 - [ ] Unit tests against analytic ground truth trajectories
 
 ## M3 — Motion Planning
