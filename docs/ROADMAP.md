@@ -13,7 +13,7 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `geometry::Pose2` — SE(2) rigid transform, compose/inverse/relative-to
 - [x] `geometry::Twist2` — planar velocity, body/world frame conversions
 
-## M2 — State Estimation (in progress)
+## M2 — State Estimation (complete — v0.2.0)
 
 - [x] `math::Matrix` — fixed-size constexpr matrix algebra (no external deps)
 - [x] `estimation::DiffDriveOdometry` — wheel-speed dead reckoning
