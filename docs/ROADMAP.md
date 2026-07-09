@@ -31,10 +31,10 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `control::PidController` — anti-windup, derivative filtering
 - [x] `control::PurePursuit` — path tracking with adaptive lookahead
 
-## M5 — ROS 2 Integration
+## M5 — ROS 2 Integration (complete — v0.5.0)
 
-- [ ] `ars_ros2` adapter layer: lifecycle nodes, message conversions
-- [ ] colcon build alongside standalone CMake
+- [x] `ars_ros2` adapter layer: lifecycle nodes, message conversions
+- [x] colcon build alongside standalone CMake
 
 ## M6 — Simulation
 
