@@ -28,8 +28,7 @@ class Pose2 {
   [[nodiscard]] Vec2<T> transform(const Vec2<T>& point) const {
     const T c = rotation_.cos();
     const T s = rotation_.sin();
-    return {c * point.x - s * point.y + translation_.x,
-            s * point.x + c * point.y + translation_.y};
+    return {c * point.x - s * point.y + translation_.x, s * point.x + c * point.y + translation_.y};
   }
 
   /// T_a_c = T_a_b.compose(T_b_c)
@@ -41,9 +40,9 @@ class Pose2 {
   [[nodiscard]] Pose2 inverse() const {
     const T c = rotation_.cos();
     const T s = rotation_.sin();
-    return {{-(c * translation_.x + s * translation_.y),
-             -(-s * translation_.x + c * translation_.y)},
-            -rotation_};
+    return {
+        {-(c * translation_.x + s * translation_.y), -(-s * translation_.x + c * translation_.y)},
+        -rotation_};
   }
 
   /// Expresses `other` relative to this pose: T_this_other.

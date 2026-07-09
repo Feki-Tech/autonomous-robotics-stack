@@ -45,8 +45,7 @@ struct Twist2 {
   /// applied to `pose` (exact for pure translation or pure rotation steps).
   [[nodiscard]] Pose2<T> integrate(const Pose2<T>& pose, T dt) const {
     const auto world = to_world(pose.rotation());
-    return {pose.translation() + world.linear * dt,
-            pose.rotation() + Angle<T>{angular * dt}};
+    return {pose.translation() + world.linear * dt, pose.rotation() + Angle<T>{angular * dt}};
   }
 
   constexpr bool operator==(const Twist2&) const = default;

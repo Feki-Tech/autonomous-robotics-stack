@@ -24,9 +24,7 @@ class Angle {
   }
 
   [[nodiscard]] constexpr T radians() const { return radians_; }
-  [[nodiscard]] constexpr T degrees() const {
-    return radians_ * T{180} / std::numbers::pi_v<T>;
-  }
+  [[nodiscard]] constexpr T degrees() const { return radians_ * T{180} / std::numbers::pi_v<T>; }
 
   constexpr Angle operator+(Angle rhs) const { return Angle{radians_ + rhs.radians_}; }
   constexpr Angle operator-(Angle rhs) const { return Angle{radians_ - rhs.radians_}; }
