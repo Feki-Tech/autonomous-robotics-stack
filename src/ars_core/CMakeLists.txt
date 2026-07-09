@@ -27,8 +27,14 @@ if(BUILD_TESTING)
   )
   FetchContent_MakeAvailable(googletest)
 
-  add_executable(test_vec2 test/geometry/test_vec2.cpp)
-  target_link_libraries(test_vec2 PRIVATE ars_core GTest::gtest_main)
+  # Registers a unit test executable linked against ars_core and GTest.
+  function(ars_add_test name source)
+    add_executable(${name} ${source})
+    target_link_libraries(${name} PRIVATE ars_core GTest::gtest_main)
+    gtest_discover_tests(${name})
+  endfunction()
+
   include(GoogleTest)
-  gtest_discover_tests(test_vec2)
+  ars_add_test(test_vec2 test/geometry/test_vec2.cpp)
+  ars_add_test(test_angle test/geometry/test_angle.cpp)
 endif()

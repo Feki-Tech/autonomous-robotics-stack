@@ -9,7 +9,7 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 
 - [x] Repository scaffolding, tooling, CI (sanitized builds, format gate)
 - [x] `geometry::Vec2` — constexpr 2D vector algebra
-- [ ] `geometry::Angle` — normalized angle type ([-π, π)), safe arithmetic
+- [x] `geometry::Angle` — normalized angle type ([-π, π)), safe arithmetic
 - [ ] `geometry::Pose2` — SE(2) rigid transform, compose/inverse/relative-to
 - [ ] `geometry::Twist2` — planar velocity, body/world frame conversions
 
