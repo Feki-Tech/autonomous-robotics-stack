@@ -61,11 +61,11 @@ jobs:
         shell: bash
         run: |
           source /opt/ros/jazzy/setup.bash
-          colcon build --packages-select ars_ros2 --event-handlers console_cohesion+
+          colcon build --packages-select ars_ros2 ars_sim --event-handlers console_cohesion+
 
       - name: Test
         shell: bash
         run: |
           source /opt/ros/jazzy/setup.bash
-          colcon test --packages-select ars_ros2 --event-handlers console_cohesion+
+          colcon test --packages-select ars_ros2 ars_sim --event-handlers console_cohesion+
           colcon test-result --verbose
