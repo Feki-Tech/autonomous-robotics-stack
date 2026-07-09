@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ars_sim</name>
+  <version>0.6.0</version>
+  <description>
+    Gazebo Harmonic simulation assets for the Autonomous Robotics Stack: a
+    differential-drive AMR model, worlds, bridge configuration, and the
+    software-in-the-loop launch pipeline.
+  </description>
+  <maintainer email="mohamed.feki@ml-pa.com">Mohamed Feki</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>ars_ros2</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
