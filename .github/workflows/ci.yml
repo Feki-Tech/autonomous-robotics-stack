@@ -49,3 +49,23 @@ jobs:
         env:
           ASAN_OPTIONS: strict_string_checks=1:detect_stack_use_after_return=1
           UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+
+  ros2:
+    name: ars_ros2 (colcon)
+    runs-on: ubuntu-24.04
+    container: ros:jazzy-ros-base
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        shell: bash
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          colcon build --packages-select ars_ros2 --event-handlers console_cohesion+
+
+      - name: Test
+        shell: bash
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          colcon test --packages-select ars_ros2 --event-handlers console_cohesion+
+          colcon test-result --verbose
