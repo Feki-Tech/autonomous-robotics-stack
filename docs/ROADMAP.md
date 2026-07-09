@@ -20,11 +20,11 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] `estimation::Ekf` — generic EKF over concept-constrained models
 - [x] Unit tests against analytic ground truth trajectories
 
-## M3 — Motion Planning
+## M3 — Motion Planning (complete — v0.3.0)
 
-- [ ] `planning::OccupancyGrid` — value-semantic grid map
-- [ ] `planning::AStar` — grid A* with pluggable heuristics
-- [ ] `planning::PathSmoother` — gradient-based smoothing
+- [x] `planning::OccupancyGrid` — value-semantic grid map
+- [x] `planning::AStar` — grid A* with pluggable heuristics
+- [x] `planning::PathSmoother` — gradient-based smoothing
 
 ## M4 — Trajectory Control
 
