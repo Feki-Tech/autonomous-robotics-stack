@@ -50,5 +50,54 @@ TEST(ConversionsTest, Twist2OutOfPlaneComponentsAreZero) {
   EXPECT_DOUBLE_EQ(msg.angular.y, 0.0);
 }
 
+TEST(ConversionsTest, OccupancyGridConversionPreservesGeometry) {
+  nav_msgs::msg::OccupancyGrid msg;
+  msg.info.width = 4;
+  msg.info.height = 3;
+  msg.info.resolution = 0.5;
+  msg.info.origin.position.x = -1.0;
+  msg.info.origin.position.y = 2.0;
+  msg.data.assign(12, 0);
+
+  const auto grid = to_grid(msg);
+  EXPECT_EQ(grid.width(), 4U);
+  EXPECT_EQ(grid.height(), 3U);
+  EXPECT_DOUBLE_EQ(grid.resolution(), 0.5);
+  EXPECT_DOUBLE_EQ(grid.origin().x, -1.0);
+  EXPECT_DOUBLE_EQ(grid.origin().y, 2.0);
+}
+
+TEST(ConversionsTest, OccupancyGridTreatsUnknownAndOccupiedAsBlocked) {
+  nav_msgs::msg::OccupancyGrid msg;
+  msg.info.width = 3;
+  msg.info.height = 1;
+  msg.info.resolution = 1.0;
+  msg.data = {0, -1, 100};  // free, unknown, occupied
+
+  const auto grid = to_grid(msg);
+  EXPECT_TRUE(grid.is_free({0, 0}));
+  EXPECT_FALSE(grid.is_free({1, 0}));
+  EXPECT_FALSE(grid.is_free({2, 0}));
+}
+
+TEST(ConversionsTest, PathRoundTrip) {
+  const std::vector<core::geometry::Vec2<double>> points{{0.0, 0.0}, {1.0, 0.5}, {2.0, -1.0}};
+  std_msgs::msg::Header header;
+  header.frame_id = "odom";
+
+  const auto msg = to_path_msg(points, header);
+  ASSERT_EQ(msg.poses.size(), points.size());
+  EXPECT_EQ(msg.header.frame_id, "odom");
+  EXPECT_EQ(msg.poses.front().header.frame_id, "odom");
+  EXPECT_DOUBLE_EQ(msg.poses[1].pose.orientation.w, 1.0);
+
+  const auto restored = from_msg(msg);
+  ASSERT_EQ(restored.size(), points.size());
+  for (std::size_t i = 0; i < points.size(); ++i) {
+    EXPECT_DOUBLE_EQ(restored[i].x, points[i].x);
+    EXPECT_DOUBLE_EQ(restored[i].y, points[i].y);
+  }
+}
+
 }  // namespace
 }  // namespace ars::ros2::conversions
