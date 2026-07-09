@@ -1,6 +1,15 @@
 build/
+build-*/
 install/
 log/
-.mentor/
-.cache/
 compile_commands.json
+.mentor/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+.cache/
+.ccache/
+__pycache__/
