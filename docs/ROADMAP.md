@@ -15,10 +15,10 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 
 ## M2 — State Estimation (in progress)
 
-- [ ] `math::Matrix` — fixed-size constexpr matrix algebra (no external deps)
-- [ ] `estimation::DiffDriveOdometry` — wheel-speed dead reckoning
-- [ ] `estimation::Ekf` — generic EKF over concept-constrained models
-- [ ] Unit tests against analytic ground truth trajectories
+- [x] `math::Matrix` — fixed-size constexpr matrix algebra (no external deps)
+- [x] `estimation::DiffDriveOdometry` — wheel-speed dead reckoning
+- [x] `estimation::Ekf` — generic EKF over concept-constrained models
+- [x] Unit tests against analytic ground truth trajectories
 
 ## M3 — Motion Planning
 
