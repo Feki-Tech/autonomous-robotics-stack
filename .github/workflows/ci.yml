@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    name: clang-format
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check formatting
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq clang-format
+          find src -name '*.hpp' -o -name '*.cpp' | xargs clang-format --dry-run --Werror
+
+  core:
+    name: ars_core (${{ matrix.preset }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [dev, release]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq cmake ninja-build g++
+
+      - name: Configure
+        working-directory: src/ars_core
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build
+        working-directory: src/ars_core
+        run: cmake --build --preset ${{ matrix.preset }} -j$(nproc)
+
+      - name: Test
+        if: matrix.preset == 'dev'
+        working-directory: src/ars_core
+        run: ctest --preset dev
+        env:
+          ASAN_OPTIONS: strict_string_checks=1:detect_stack_use_after_return=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
