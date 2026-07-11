@@ -70,10 +70,23 @@ ament_target_dependencies(controller_node PUBLIC
 add_executable(controller_node_main src/controller_node_main.cpp)
 target_link_libraries(controller_node_main PRIVATE controller_node)
 
+# --- mission lifecycle node ---
+add_library(mission_node SHARED src/mission_node.cpp)
+target_include_directories(mission_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(mission_node PUBLIC ars_core ars_ros2_conversions)
+ament_target_dependencies(mission_node PUBLIC
+  rclcpp rclcpp_lifecycle nav_msgs geometry_msgs)
+
+add_executable(mission_node_main src/mission_node_main.cpp)
+target_link_libraries(mission_node_main PRIVATE mission_node)
+
 install(DIRECTORY include/ DESTINATION include)
-install(TARGETS odometry_node planner_node controller_node
+install(TARGETS odometry_node planner_node controller_node mission_node
   ARCHIVE DESTINATION lib LIBRARY DESTINATION lib)
-install(TARGETS odometry_node_main planner_node_main controller_node_main
+install(TARGETS odometry_node_main planner_node_main controller_node_main mission_node_main
   RUNTIME DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
@@ -86,6 +99,8 @@ if(BUILD_TESTING)
   target_link_libraries(test_planner_node planner_node)
   ament_add_gtest(test_controller_node test/test_controller_node.cpp)
   target_link_libraries(test_controller_node controller_node)
+  ament_add_gtest(test_mission_node test/test_mission_node.cpp)
+  target_link_libraries(test_mission_node mission_node)
 endif()
 
 ament_package()
