@@ -7,6 +7,9 @@ drive the robot:
     ros2 launch ars_sim sil.launch.py
     ros2 topic pub --once /goal_pose geometry_msgs/msg/PoseStamped \
         '{pose: {position: {x: 2.0, y: -1.0}}}'
+
+Pass mission:=true to also run the waypoint mission node, which dispatches the
+configured waypoints autonomously instead of waiting for manual goals.
 """
 
 import os
@@ -28,12 +31,16 @@ def generate_launch_description():
         get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
 
     headless = LaunchConfiguration('headless')
+    mission = LaunchConfiguration('mission')
     use_sim_time = {'use_sim_time': True}
 
     return LaunchDescription([
         DeclareLaunchArgument(
             'headless', default_value='true',
             description='Run the Gazebo server without a GUI'),
+        DeclareLaunchArgument(
+            'mission', default_value='false',
+            description='Run the waypoint mission node'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(gz_launch),
@@ -75,4 +82,16 @@ def generate_launch_description():
             name='ars_controller',
             parameters=[{'cruise_speed': 0.5, 'goal_tolerance': 0.1}, use_sim_time],
             output='screen'),
+
+        Node(
+            package='ars_ros2',
+            executable='mission_node_main',
+            name='ars_mission',
+            parameters=[{
+                'waypoints': [2.0, -1.0, 3.0, 1.5, 0.0, 0.0],
+                'goal_tolerance': 0.2,
+                'progress_timeout': 30.0,
+            }, use_sim_time],
+            output='screen',
+            condition=IfCondition(mission)),
     ])
