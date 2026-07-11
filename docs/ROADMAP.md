@@ -41,6 +41,8 @@ Pure C++20, no ROS. The mathematical backbone of the stack.
 - [x] Gazebo Harmonic diff-drive AMR model
 - [x] Full SIL pipeline: sensors → estimation → planning → control
 
-## M7 — Mission Execution
+## M7 — Mission Execution (complete — v0.7.0)
 
-- [ ] Behavior-tree mission layer, waypoint missions, recovery behaviors
+- [x] Behavior-tree engine: sequences, selectors, decorators (retry / repeat / invert)
+- [x] Waypoint missions with per-waypoint retry budgets
+- [x] Lifecycle mission node: progress-based stall detection, autonomous goal dispatch

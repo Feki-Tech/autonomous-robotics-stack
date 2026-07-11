@@ -37,7 +37,7 @@ adapter boundary; core libraries never include ROS headers.
 | `ars_core`       | Geometry, estimation, planning, control (pure C++20)   |   🟢   |
 | `ars_ros2`       | Lifecycle nodes, executors, message adapters           |   🟢   |
 | `ars_sim`        | Gazebo worlds, diff-drive AMR model, sensor bridges    |   🟢   |
-| `ars_missions`   | Behavior-tree mission execution                        |   ⚪   |
+| `ars_missions`   | Behavior-tree mission execution (in core + ros2)       |   🟢   |
 | `ars_bringup`    | Launch files, parameters, system composition           |   ⚪   |
 
 See the [Roadmap](docs/ROADMAP.md).
@@ -63,6 +63,10 @@ ros2 topic pub --once /goal_pose geometry_msgs/msg/PoseStamped \
 
 The robot plans a path with A*, tracks it with pure pursuit, and localizes with
 its own wheel odometry — Gazebo's ground truth is never consumed.
+
+Add `mission:=true` to run an autonomous waypoint mission instead: a
+behavior-tree mission node dispatches each waypoint, retries on stalls, and
+reports completion.
 
 ## Run everything in Docker
 
